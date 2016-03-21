@@ -12,7 +12,7 @@ public class TextureScroller : MonoBehaviour {
 	
 	void Update () {
 
-		if(PlayerController.isWalking) {
+		if(PlayerController.isWalking || PlayerNewController.isBacking) {
             offset += speed * Time.deltaTime * (GetComponent<Renderer>().material.mainTextureScale.x / 1.5f);
 			GetComponent<Renderer>().material.SetTextureOffset ("_MainTex", new Vector2(offset, 0));
 		}

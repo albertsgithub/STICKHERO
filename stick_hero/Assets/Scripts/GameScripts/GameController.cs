@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 
     private float minDistance = 1.0f;                     //新平台离当前平台的最近距离
     private float maxDistance = 3.0f;                     //新平台离当前平台的最远距离
-    private float minScale = 0.3f;                        //新平台的最小宽度缩放
+    private float minScale = 0.5f;                        //新平台的最小宽度缩放
     private float maxScale = 2.0f;                        //新平台的最大宽度缩放
     private float targetDistance;                         //新平台目标距离
     private float targetScale;                            //新平台目标缩放值
@@ -129,6 +129,8 @@ public class GameController : MonoBehaviour
         NewPlatform.transform.Rotate(new Vector3(90f,180f,0));
         //新平台宽度缩放
         NewPlatform.transform.localScale = new Vector3(targetScale*0.05f, 1, 1);
+        //恢复子元素加分区域的缩放
+        NewPlatform.transform.FindChild("BonusArea").localScale = new Vector3(0.2f,1f,0.01f);
         //新平台宽度
         newPlatW = NewPlatform.GetComponent<MeshRenderer>().bounds.size.x;
         //及时停止创建

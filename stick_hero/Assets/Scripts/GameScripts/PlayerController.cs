@@ -113,8 +113,12 @@ public class PlayerController : MonoBehaviour {
 
         //检测主角坠亡游戏结束
         if (transform.position.y < -7.0f) {
+            //游戏结束
             GameController.gameover = true;
-            Destroy(gameObject);
+            //播放坠落音效
+            PlaySfx(sfx_hit);
+            //延迟一会儿销毁主角
+            StartCoroutine(DelayDestroyPlayer());
         }
 
     }
@@ -142,6 +146,8 @@ public class PlayerController : MonoBehaviour {
         stickLength += stickGrowSpeed * Time.deltaTime;
         stickEndPoint += new Vector3(0, stickGrowSpeed * Time.deltaTime, 0);
         stickRender.SetPosition(1, stickEndPoint);
+        //棍子增长声音
+        PlaySfx(sfx_stick);
         //增长延迟
         yield return 0;
     }
@@ -167,13 +173,13 @@ public class PlayerController : MonoBehaviour {
             //如果动作成功但不加分
             if (actionResult == 1) { 
                 //播放棍子落地音效
-                //... ...
+                PlaySfx(sfx_hit);
 
             }
             //如果落到加分区域
             else if (actionResult == 2) { 
                 //播放额外加分音效
-                //... ...
+                PlaySfx(sfx_bonus);
                 //额外加一分
                 ++GameController.score;
             }
@@ -190,6 +196,8 @@ public class PlayerController : MonoBehaviour {
     IEnumerator PlayerWalking() { 
         //主角移动
         transform.Translate(Vector3.right*playerSpeed*Time.deltaTime*3);
+        //播放脚步声
+        PlaySfx(sfx_walk);
 
         //检测主角移动到目的地：
         // 1.如果动作不成功则主角走到棍子末端后坠落
@@ -209,7 +217,7 @@ public class PlayerController : MonoBehaviour {
             {
                 isWalking = false;
                 //播放动作成功音效
-                //... ...
+                //PlaySfx(sfx_hit);
                 //正常得分
                 ++GameController.score;
                 //将主角绑定到新平台上跟随平台往后移动
@@ -246,6 +254,20 @@ public class PlayerController : MonoBehaviour {
         else {
             actionResult = 2;
         }
+    }
+
+    //延迟销毁主角
+    public IEnumerator DelayDestroyPlayer() {
+        yield return new WaitForSeconds(0.3f);
+        Destroy(gameObject);
+        yield return 0;
+    }
+    
+    //播放声音片段
+    public void PlaySfx(AudioClip sfx) {
+        GetComponent<AudioSource>().clip = sfx;
+        if (!GetComponent<AudioSource>().isPlaying)
+            GetComponent<AudioSource>().Play();
     }
 
     #endregion

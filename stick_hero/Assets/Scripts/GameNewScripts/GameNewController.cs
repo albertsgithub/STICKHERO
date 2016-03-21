@@ -54,7 +54,7 @@ public class GameNewController : MonoBehaviour {
     public static float secondR;                          //第二个西瓜的半径
     private Vector3 firstPosition;                        //第一个西瓜的位置
     private Vector3 secondPosition;                       //第二个西瓜的位置
-    private float melonNum;                               //西瓜的个数
+    public static int melonNum;                           //西瓜的个数
 
     #region 脚本生命周期
     // 初始化
@@ -67,9 +67,9 @@ public class GameNewController : MonoBehaviour {
         //平台初始位置
         platInitPosition = CurrentPlatform.transform.position;
         //平台宽度
-        platFormW = CurrentPlatform.GetComponent<MeshRenderer>().bounds.size.x;
+        platFormW = CurrentPlatform.GetComponent<SpriteRenderer>().bounds.size.x;
         //平台高度
-        platFormH = CurrentPlatform.GetComponent<MeshRenderer>().bounds.size.y;
+        platFormH = CurrentPlatform.GetComponent<SpriteRenderer>().bounds.size.y;
 
         //变量初始值
         gameover = false;
@@ -95,7 +95,10 @@ public class GameNewController : MonoBehaviour {
         //创建第一个新平台
         //创建一个西瓜
         melonNum = 1;
-        StartCoroutine(CreatePlatform());
+        //创建平台
+        CreatePlatform();
+        //随机创建西瓜
+        CreateRandomMelon();
 
         //开始交互
         canStartTheGame = true;
@@ -113,6 +116,8 @@ public class GameNewController : MonoBehaviour {
         //新平台产生源
         if (canCreatePlatform)
         {
+            //及时停止创建
+            canCreatePlatform = false;
             //当前平台更新
             CurrentPlatform = NewPlatform;
             //生成随机新平台距离
@@ -126,7 +131,13 @@ public class GameNewController : MonoBehaviour {
                 melonNum = 2;
             else
                 melonNum = 1;
-            StartCoroutine(CreatePlatform());
+
+            //创建平台
+            CreatePlatform();
+            //随机创建西瓜
+            CreateRandomMelon();
+            //所有平台完往后移动
+            PlayerNewController.isBacking = true;
 
         }
 	}
@@ -146,7 +157,7 @@ public class GameNewController : MonoBehaviour {
     #region 自定义函数
 
     //创建一个新平台
-    public IEnumerator CreatePlatform()
+    public void CreatePlatform()
     {
         //新平台位置
         newPlatPosition = CurrentPlatform.transform.position + new Vector3(targetDistance + platFormW, 0, 0);
@@ -182,17 +193,8 @@ public class GameNewController : MonoBehaviour {
 
         //克隆一个平台prefab
         NewPlatform = Instantiate(PlatformPrefab, newPlatPosition, Quaternion.identity) as GameObject;
-        //旋转到可见
-        NewPlatform.transform.Rotate(new Vector3(90f, 180f, 0));
         //新平台宽度缩放
-        NewPlatform.transform.localScale = new Vector3(0.05f, 1, 1);
-        //及时停止创建
-        canCreatePlatform = false;
-
-        //随机创建西瓜
-       // CreateRandomMelon();
-
-        yield return 0;
+        NewPlatform.transform.localScale = new Vector3(0.2f, 3, 1);
     }
 
     //随机搜索一个或者两个西瓜的位置点和西瓜随机半径
@@ -241,20 +243,6 @@ public class GameNewController : MonoBehaviour {
             Melon2.transform.localScale = new Vector3(secondRScale, secondRScale, 1);
 
         }
-    }
-
-    //随机生成一个或者两个西瓜
-    public IEnumerator CreateMelon() {
-        Melon1 = Instantiate(Melon1Prefab, firstPosition, Quaternion.identity) as GameObject;
-        Melon1.transform.localScale = new Vector3(firstRScale, firstRScale, 1);
-        /*
-        if (melonNum == 2) {
-            Melon2 = Instantiate(Melon2Prefab, secondPosition, Quaternion.identity) as GameObject;
-            Melon2.transform.localScale = new Vector3(secondRScale, secondRScale, 1);
-        }
-         */
-        yield return 0;
-            
     }
 
     //游戏结束处理

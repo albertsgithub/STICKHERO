@@ -13,9 +13,9 @@ public class PlayerNewController : MonoBehaviour {
     private Vector3 virtualStartPoint;                  //跟随点的旋转起点
 
     private Vector3 playerInitPos;                      //主角的初始位置，作为参考点一旦初始化保持不变
-    private Vector3 targetPosition;                     //主角要跳到的目的位置（动态变化）
-    private Vector3 stickStartPoint;                    //棍子起点
-    private Vector3 stickEndPoint;                      //棍子末点
+    private  Vector3 targetPosition;                    //主角要跳到的目的位置（动态变化）
+    public static Vector3 stickStartPoint;              //棍子起点
+    public static Vector3 stickEndPoint;                //棍子末点
     private float stickLength;                          //棍子长度
     public static float stickMaxLength;                 //棍子的最大长度（根据新平台的位置动态变化）
     private float stickUnit = 2.0f;                     //棍子伸缩速度
@@ -30,11 +30,12 @@ public class PlayerNewController : MonoBehaviour {
     public static bool isJumping;                       //是否在跳跃
     private bool isPulling;                             //是否在拉长棍子
     private bool isShrinking;                           //是否在缩短棍子
-    private bool isDroping;                             //是否在放倒棍子
+    public static bool isDroping;                       //是否在放倒棍子
     public static bool isBacking;                       //是否在整体往后撤退
+    public static bool isDead;                          //主角是否死亡，用于判断震动
 
     ///音效
-    public AudioClip sfx_jump;                          //主角走路
+    public AudioClip sfx_jump;                          //主角跳跃
     public AudioClip sfx_drop;                          //棍子挥舞音效
     public AudioClip sfx_fall;                          //棍子落地
     public AudioClip sfx_stick;                         //棍子增长的声音
@@ -61,6 +62,7 @@ public class PlayerNewController : MonoBehaviour {
         isJumping = false;
         isShrinking = false;
         isPulling = true;
+        isDead = false;
 
         stickRotation = 0;
 
@@ -107,12 +109,6 @@ public class PlayerNewController : MonoBehaviour {
             StartCoroutine(DropStick());
         }
 
-        //主角跳到指定位置
-        if (isJumping)
-        {
-            StartCoroutine(PlayerJumpTo(targetPosition));
-        }
-
         //检测主角退回到开始位置
         if (isBacking && transform.position.x <= playerInitPos.x)
         {
@@ -126,11 +122,14 @@ public class PlayerNewController : MonoBehaviour {
             isPulling = true;
         }
 
-        //检测主角坠亡游戏结束
+        //检测主角坠亡
         if (transform.position.y < -7.0f)
         {
-            GameNewController.gameover = true;
-            Destroy(gameObject);
+            //播放坠落音效
+            PlaySfx(sfx_hit);
+            isDead = true;
+            //延迟销毁主角
+            StartCoroutine(DelayDestroyPlayer());
         }
 
     }
@@ -161,6 +160,7 @@ public class PlayerNewController : MonoBehaviour {
         {
             stickLength += stickUnit*Time.deltaTime;
             stickEndPoint += new Vector3(0, stickUnit * Time.deltaTime, 0);
+            //升高棍子的末端点
             StickRender.SetPosition(1, stickEndPoint);
             //检测伸长到最大长度
             if (stickLength >= stickMaxLength)
@@ -180,6 +180,9 @@ public class PlayerNewController : MonoBehaviour {
                 isPulling = true;
             }
         }
+        //虚拟点跟随棍子末端点
+        VirtualPoint.transform.position = stickEndPoint;
+
         yield return 0;
     }
 
@@ -196,10 +199,11 @@ public class PlayerNewController : MonoBehaviour {
         //速度减慢
         rotateAngle -= 0.5f;
         //棍子末端跟随虚拟点旋转
+        stickEndPoint = VirtualPoint.transform.position;
         StickRender.SetPosition(1, VirtualPoint.transform.position);
 
         //检测旋转结束
-        if (stickRotation > 160) {
+        if (stickRotation > 170) {
             //角度计数器归零
             stickRotation = 0;
             //旋转速度恢复
@@ -208,20 +212,25 @@ public class PlayerNewController : MonoBehaviour {
             isDroping = false;
             //隐藏棍子
             StickRender.enabled = false;
+            //虚拟点的旋转参数清零，因为棍子的碰撞体组件要用
+            VirtualPoint.transform.rotation = Quaternion.identity;
 
+            Debug.Log(GameNewController.melonNum + "\n");
+            // ********************************如果没有碰到平台的动作结果判断*************************** //
             //根据动作结果判断主角掉落还是继续跳跃到下一个平台:
-            if (stickLength > GameNewController.successLength)
+            if (GameNewController.melonNum > 0)
             {
-                //主角跌落
+                //主角跌落游戏结束
                 GetComponent<Rigidbody>().useGravity = true;
-                //旋转
-                transform.RotateAround(transform.position, new Vector3(0, 0, 1), -Time.deltaTime * rotateAngle * 3);
+                GameNewController.gameover = true;
+                //主角旋转
+                //... ...
             }
             //动作成功跳到下一个平台
             else {
                 //跳跃目的点
-                Vector3 targetJumpPos = GameNewController.NewPlatform.transform.position + new Vector3(0, GameNewController.platFormH / 2 + playerH / 2, 0);
-                StartCoroutine(PlayerJumpTo(targetJumpPos));
+                targetPosition = GameNewController.NewPlatform.transform.position + new Vector3(0, GameNewController.platFormH / 2 + playerH / 2, 0);
+                StartCoroutine(PlayerJumpTo(targetPosition));
             }
         }
         yield return 0;
@@ -233,15 +242,33 @@ public class PlayerNewController : MonoBehaviour {
         transform.position = targetPos;
         //去掉旋转
         transform.rotation = Quaternion.identity;
+        //跳跃音效
+        PlaySfx(sfx_stick);
         //正常得分
         ++GameNewController.score;
+        
+        //等待主角跳跃动画结束
+        yield return new WaitForSeconds(1.0f);
         //创建新平台
         GameNewController.canCreatePlatform = true;
-        //等待平台创建完成
-        yield return new WaitForSeconds(0.2f);
-        //所有平台完往后移动
-        isBacking = true;
+
         yield return 0;
+    }
+
+    //延迟销毁主角
+    public IEnumerator DelayDestroyPlayer()
+    {
+        yield return new WaitForSeconds(0.3f);
+        Destroy(gameObject);
+        yield return 0;
+    }
+
+    //播放声音片段
+    public void PlaySfx(AudioClip sfx)
+    {
+        GetComponent<AudioSource>().clip = sfx;
+        if (!GetComponent<AudioSource>().isPlaying)
+            GetComponent<AudioSource>().Play();
     }
 
     #endregion

@@ -7,6 +7,7 @@ using System.Collections;
 
 public class Melon1Controller : MonoBehaviour {
 
+    public AudioClip sfx_melonbroken;               //西瓜破碎音效
 
 	// 按帧更新
 	void Update () {
@@ -18,8 +19,12 @@ public class Melon1Controller : MonoBehaviour {
     //碰撞触发器
     void OnTriggerEnter2D(Collider2D other)
     {
+        //如果不是棍子碰撞则忽略，防止西瓜碰撞的情况
+        if (other.gameObject.name != "Stick")
+            return;
+
         //播放西瓜破碎音效
-        //... ...
+        PlaySfx(sfx_melonbroken);
         //播放西瓜破碎动画
         //... ...
         //取出精灵渲染组件
@@ -33,11 +38,18 @@ public class Melon1Controller : MonoBehaviour {
         //Sprite melon_new = Sprite.Create(melon_open, SpriteRender.sprite.textureRect, new Vector2(0.5f, 0.5f));
         //SpriteRender.sprite = melon_new;
 
-
         //西瓜坠落
         GetComponent<Rigidbody2D>().gravityScale = 1.0f;
-        //GetComponent<Rigidbody>().useGravity = true;
-        Debug.Log("西瓜1坠落");
+        //告诉游戏控制器打掉一个西瓜
+        GameNewController.melonNum -= 1;
+    }
+
+    //播放声音片段
+    public void PlaySfx(AudioClip sfx)
+    {
+        GetComponent<AudioSource>().clip = sfx;
+        if (!GetComponent<AudioSource>().isPlaying)
+            GetComponent<AudioSource>().Play();
     }
 
 }

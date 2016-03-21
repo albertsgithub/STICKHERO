@@ -1,10 +1,17 @@
 fileFormatVersion: 2
 guid: 18d6329947d31cc4d95ad6222c67cc00
-timeCreated: 1458028049
+timeCreated: 1458552671
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Stick: {instanceID: 0}
+  - VirtualPoint: {instanceID: 0}
+  - sfx_walk: {fileID: 8300000, guid: 37dcdd8d3fefb2d42829aee888e455ea, type: 3}
+  - sfx_fall: {fileID: 8300000, guid: ac6c066c19359204795c1b58934f1663, type: 3}
+  - sfx_stick: {instanceID: 0}
+  - sfx_bonus: {fileID: 8300000, guid: 6ed3a9a6be35ab543ae98793eebe74d1, type: 3}
+  - sfx_hit: {fileID: 8300000, guid: ff8e2ec745fe9494e954183b778d946a, type: 3}
   executionOrder: 200
   icon: {instanceID: 0}
   userData: 
