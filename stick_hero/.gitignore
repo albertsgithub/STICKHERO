@@ -20,13 +20,13 @@ DerivedData/
 /Temp/
 /Obj/
 
+# Ignore UnityVS
+
 /*.DotSettings
 
 /.vs
 
-# ±àÒë½á¹û
 /Build/Debug
-/Autobuilder
 
 #uIntelliSense
 /Assets/uIntelliSense
@@ -45,7 +45,7 @@ DerivedData/
 sysinfo.txt
 
 
-# ²å¼ş
+# æ’ä»¶
 /Assets/UnityVS
 /Assets/UnityVS.meta
 /Assets/Plugins/Editor/M
