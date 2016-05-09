@@ -12,7 +12,7 @@ public class MenuController : MonoBehaviour {
     //购买芒果面板
     public GameObject ShopPanel;
 	//
-	//public GameObject MenuPanel;
+	public GameObject MenuPanel;
 
     //声音设置按钮的子图片
     //public GameObject soundsImage;
@@ -20,14 +20,14 @@ public class MenuController : MonoBehaviour {
     // 0.开始游戏
     public void StartGame()
     {
-		//MenuPanel.SetActive (false);
+		MenuPanel.transform.localScale = Vector3.zero;
         Application.LoadLevel("Game");
     }
 
     // 1.开始新版游戏
     public void StartGameNew()
     {
-		//MenuPanel.SetActive (false);
+		MenuPanel.transform.localScale = Vector3.zero;
         Application.LoadLevel("GameNew");
     }
 

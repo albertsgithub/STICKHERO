@@ -16,6 +16,13 @@ public class GameOverButtonFunctions : MonoBehaviour {
     //1.HOME按钮事件
     public void HomeButtonClicked()
     {
+		GameObject MenuBG = GameObject.FindWithTag ("MenuBG");
+
+		if (MenuBG == null)
+			Debug.Log ("找不到MenuBG");
+		else
+			MenuBG.SetActive (true);
+		
         Application.LoadLevel("Menu");
     }
 

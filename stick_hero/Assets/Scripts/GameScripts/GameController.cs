@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
     [System.NonSerialized]
     public static GameObject CurrentPlatform;             //当前平台
     [System.NonSerialized]
     public static GameObject NewPlatform;                 //当前新平台
-    public GameObject GameoverPlanel;                     //游戏结束面板
+	private GameObject GameoverPlanel;                     //游戏结束面板
     public GameObject PlatformPrefab;                     //平台预设模板
-    public GameObject ScoreText;                          //游戏分数显示标签
+	private GameObject ScoreText;                          //游戏分数显示标签
 
     public static bool gameover;                          //游戏结束标志
     public static bool canCreatePlatform;                 //允许创建平台
@@ -32,34 +32,31 @@ public class GameController : MonoBehaviour
     public static int score;                              //当前游戏分数
     
 
-    /// <summary>
-    /// 初始化
-    /// </summary>
-    void Awake()
-    {
-        //游戏帧率设置
-        Application.targetFrameRate = 60;
-        //初始化当前平台
-        CurrentPlatform = GameObject.FindGameObjectWithTag("game_platform_start");
-        //平台宽度
-        currentPlatW = CurrentPlatform.GetComponent<MeshRenderer>().bounds.size.x;
-        //平台高度
-        platFormH = CurrentPlatform.GetComponent<MeshRenderer>().bounds.size.y;
-
-        //变量初始值
-        gameover = false;
-        canCreatePlatform = false;
-        platformCreated = 0;
-        score = 0;
-        canStartTheGame = false;
-
-        //初始化平台目标参数
-        targetDistance = minDistance;
-        targetScale = maxScale;
-    }
-
     private void Start()
     {
+		GameoverPlanel = GameObject.FindWithTag ("gameover_panel");
+		//游戏帧率设置
+		Application.targetFrameRate = 60;
+		//初始化当前平台
+		CurrentPlatform = GameObject.FindGameObjectWithTag("game_platform_start");
+		//平台宽度
+		currentPlatW = CurrentPlatform.GetComponent<MeshRenderer>().bounds.size.x;
+		//平台高度
+		platFormH = CurrentPlatform.GetComponent<MeshRenderer>().bounds.size.y;
+
+		//变量初始值
+		gameover = false;
+		canCreatePlatform = false;
+		platformCreated = 0;
+		score = 0;
+		canStartTheGame = false;
+
+		//初始化平台目标参数
+		targetDistance = minDistance;
+		targetScale = maxScale;
+
+		ScoreText = GameObject.FindWithTag ("score_text");
+
         //创建第一个新平台
         StartCoroutine(CreatePlatform());
         
@@ -152,7 +149,7 @@ public class GameController : MonoBehaviour
         //等待震动动画结束
         yield return new WaitForSeconds(1.0f);
         // 显示gameover面板
-        GameoverPlanel.SetActive(true);
+		GameoverPlanel.transform.localScale = Vector3.one;
         yield return 0;
     }
 

@@ -193,6 +193,7 @@ namespace JoystickInputController {
 		/// </summary>
 		public virtual void OnConfirm() {
 			//这样可以使主页面被点击的按钮优先聚焦
+			//gameObject.SendMessage("click")
 		}
 			
 	}

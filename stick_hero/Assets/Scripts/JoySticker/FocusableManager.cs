@@ -28,7 +28,7 @@ namespace JoystickInputController
         public FocusEffect FocusEffect;                                                  //光标显示特效
         public List<FocusableContainer> Containers;                                      //聚焦项目容器列表，每个容器容纳多个聚焦项
 
-		private bool _needUpdate = true;
+		private bool _needUpdate = false;
 
         public static bool TVMode
         {
@@ -134,18 +134,12 @@ namespace JoystickInputController
             {
                 this._needUpdate = false;
                 FocusableItem result = null;
+
                 foreach (var o in this.Containers)
                 {
                     if (o.Items.Count > 0)
                     {
                         //找到聚焦点
-                        if (o.Items.Contains(this.CurrentFocusableItem))
-                        { //如果找到当前聚焦的点，则优先聚焦它
-                            result = this.CurrentFocusableItem;
-                            break;
-                        }
-                        else
-                        {
                             result = o.Items[0];//默认选取第一个
                             foreach (var item in o.Items)
                             {
@@ -155,10 +149,10 @@ namespace JoystickInputController
                                     break;
                                 }
                             }
-                        }
                         break;
                     }
                 }
+
                 Focus(result);
             }
         }

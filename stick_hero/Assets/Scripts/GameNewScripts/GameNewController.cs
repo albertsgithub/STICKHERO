@@ -6,20 +6,20 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class GameNewController : MonoBehaviour {
+public class GameNewController : Singleton<GameNewController> {
 
     public GameObject Player;                             //主角引用
     [System.NonSerialized]
     public static GameObject CurrentPlatform;             //当前平台
     [System.NonSerialized]
     public static GameObject NewPlatform;                 //当前新平台
-    public GameObject GameoverPlanel;                     //游戏结束面板
+	private GameObject GameoverPlanel;                     //游戏结束面板
     public GameObject PlatformPrefab;                     //平台预设模板
     public GameObject Melon1Prefab;                       //西瓜1预设模板
     public GameObject Melon2Prefab;                       //西瓜2预设模板
     private GameObject Melon1;                            //西瓜1
     private GameObject Melon2;                            //西瓜2
-    public GameObject ScoreText;                          //游戏分数显示标签
+	private GameObject ScoreText;                          //游戏分数显示标签
 
     public static bool gameover;                          //游戏结束标志
     public static bool canCreatePlatform;                 //允许创建平台
@@ -57,40 +57,39 @@ public class GameNewController : MonoBehaviour {
     public static int melonNum;                           //西瓜的个数
 
     #region 脚本生命周期
-    // 初始化
-    void Awake() {
-
-        //游戏帧率设置
-        Application.targetFrameRate = 60;
-        //初始化当前平台
-        CurrentPlatform = GameObject.FindGameObjectWithTag("gamenew_platform_start");
-        //平台初始位置
-        platInitPosition = CurrentPlatform.transform.position;
-        //平台宽度
-        platFormW = CurrentPlatform.GetComponent<SpriteRenderer>().bounds.size.x;
-        //平台高度
-        platFormH = CurrentPlatform.GetComponent<SpriteRenderer>().bounds.size.y;
-
-        //变量初始值
-        gameover = false;
-        canCreatePlatform = false;
-        platformCreated = 0;
-        score = 0;
-        canStartTheGame = false;
-
-        //初始化平台目标参数
-        targetDistance = Random.Range(minDistance, maxDistance);
-        targetHeight = Random.Range(minHeight, maxHeight);
-
-        //西瓜变量初始化
-        originalR = Melon1Prefab.GetComponent<SpriteRenderer>().bounds.size.x / 2;
-        firstR = 0;
-        secondR = 0;
-        firstPosition = Vector3.zero;
-        secondPosition = Vector3.zero;
-    }
 
 	void Start () {
+		GameoverPlanel = GameObject.FindWithTag ("gameover_panel");
+		//游戏帧率设置
+		Application.targetFrameRate = 60;
+		//初始化当前平台
+		CurrentPlatform = GameObject.FindGameObjectWithTag("gamenew_platform_start");
+		//平台初始位置
+		platInitPosition = CurrentPlatform.transform.position;
+		//平台宽度
+		platFormW = CurrentPlatform.GetComponent<SpriteRenderer>().bounds.size.x;
+		//平台高度
+		platFormH = CurrentPlatform.GetComponent<SpriteRenderer>().bounds.size.y;
+
+		//变量初始值
+		gameover = false;
+		canCreatePlatform = false;
+		platformCreated = 0;
+		score = 0;
+		canStartTheGame = false;
+
+		//初始化平台目标参数
+		targetDistance = Random.Range(minDistance, maxDistance);
+		targetHeight = Random.Range(minHeight, maxHeight);
+
+		//西瓜变量初始化
+		originalR = Melon1Prefab.GetComponent<SpriteRenderer>().bounds.size.x / 2;
+		firstR = 0;
+		secondR = 0;
+		firstPosition = Vector3.zero;
+		secondPosition = Vector3.zero;
+
+		ScoreText = GameObject.FindWithTag ("score_text");
 
         //创建第一个新平台
         //创建一个西瓜
@@ -258,7 +257,7 @@ public class GameNewController : MonoBehaviour {
         //等待震动动画结束
         yield return new WaitForSeconds(1.0f);
         // 显示gameover面板
-        GameoverPlanel.SetActive(true);
+		GameoverPlanel.transform.localScale = Vector3.one;
         yield return 0;
     }
 
