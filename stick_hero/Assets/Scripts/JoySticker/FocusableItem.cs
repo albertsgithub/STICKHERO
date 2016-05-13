@@ -14,7 +14,6 @@ namespace JoystickInputController {
 		public FocusableRoot Root;            //根节点
 
 		public BoxCollider boxCollider { get; private set; }
-
 		//上下左右相邻的聚焦项目及其禁用状态
 		public bool DisableLeft = false;
 		public FocusableItem Left;
@@ -192,8 +191,7 @@ namespace JoystickInputController {
 		/// 被点击
 		/// </summary>
 		public virtual void OnConfirm() {
-			//这样可以使主页面被点击的按钮优先聚焦
-			//gameObject.SendMessage("click")
+			GetComponent<JoyStickButton> ().m_OnClick.Invoke ();
 		}
 			
 	}
