@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-namespace JoystickInputController
-{
 	
     /// <summary>
     /// 聚焦项容器数据结构
@@ -28,7 +25,7 @@ namespace JoystickInputController
         public FocusEffect FocusEffect;                                                  //光标显示特效
         public List<FocusableContainer> Containers;                                      //聚焦项目容器列表，每个容器容纳多个聚焦项
 
-		private bool _needUpdate = false;
+		public static bool _needUpdate = false;
 
         public static bool TVMode
         {
@@ -130,9 +127,9 @@ namespace JoystickInputController
 
         void LateUpdate()
         {
-            if (this._needUpdate)
+            if (_needUpdate)
             {
-                this._needUpdate = false;
+                _needUpdate = false;
                 FocusableItem result = null;
 
                 foreach (var o in this.Containers)
@@ -198,7 +195,7 @@ namespace JoystickInputController
         /// </summary>
         private void OnUpdateList()
         {
-            this._needUpdate = true;
+            _needUpdate = true;
         }
 
         /// <summary>
@@ -242,4 +239,3 @@ namespace JoystickInputController
         }
 
     }
-}

@@ -6,8 +6,6 @@
 // Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
 using UnityEngine;
 using System.Collections;
-
-namespace JoystickInputController{
 	
 	public enum DirType{
 			Left,
@@ -15,5 +13,3 @@ namespace JoystickInputController{
 			Up,
 			Down
 		}
-
-}

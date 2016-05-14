@@ -10,15 +10,17 @@ public class GameOverController : Singleton<GameOverController> {
 
     public Text ScoreText;              //游戏结束界面分数标签引用
     public Text BestText;              //游戏结束界面最高分标签引用
+	private GameObject GameOverPanel;
+	private GameObject ScoreTextDynamic;
 
 	void Start(){
-		gameObject.transform.localScale = Vector3.zero;
-
+		GameOverPanel = Client.Ins.GameOverPanel;
+		ScoreTextDynamic = Client.Ins.ScoreText;
 		//最高分
 		int best;
 		if (Application.loadedLevel == 2) {
 			best = PlayerPrefs.GetInt("game_best");
-			ScoreText.text = GameController.score.ToString ();
+			ScoreText.text = ScoreTextDynamic.GetComponent<Text> ().text;
 		} else {
 			ScoreText.text = GameNewController.score.ToString ();
 			best = PlayerPrefs.GetInt("gamenew_best");
@@ -36,10 +38,13 @@ public class GameOverController : Singleton<GameOverController> {
 	//1.HOME按钮事件
 	public void HomeButtonClicked()
 	{
-		GameObject MenuBG = GameObject.FindWithTag ("MenuBG");
+		GameOverPanel.SetActive (false);
 
-		MenuBG.transform.localScale = Vector3.one;
-		gameObject.transform.localScale = Vector3.zero;
+		GameObject MenuBG = Client.Ins.MenuBG;
+		GameObject ScoreText = Client.Ins.ScoreText;
+
+		MenuBG.SetActive (true);
+		ScoreText.SetActive (false);
 
 		Application.LoadLevel("Menu");
 
@@ -60,7 +65,7 @@ public class GameOverController : Singleton<GameOverController> {
 	//4.重新开始游戏按钮事件
 	public void RestartButtonClicked()
 	{
-		gameObject.transform.localScale = Vector3.zero;
+		GameOverPanel.SetActive(false);
 		//重新加载当前scene
 		Application.LoadLevel(Application.loadedLevel);
 	}

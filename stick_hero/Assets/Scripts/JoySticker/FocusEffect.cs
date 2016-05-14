@@ -6,8 +6,6 @@
 // Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
 using UnityEngine;
 using System.Collections;
-
-namespace JoystickInputController{
 	
 	public class FocusEffect : MonoBehaviour {
 
@@ -47,5 +45,3 @@ namespace JoystickInputController{
 			this.item = item;
 		}
 	}	
-
-}

@@ -1,7 +1,5 @@
 ﻿using System;
 using UnityEngine;
-
-namespace JoystickInputController {
 	
 	/// <summary>
 	/// 摇杆和tv控制器的模拟
@@ -43,4 +41,3 @@ namespace JoystickInputController {
 		}
 			
 	}
-}

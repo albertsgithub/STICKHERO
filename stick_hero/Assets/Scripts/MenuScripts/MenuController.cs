@@ -20,14 +20,16 @@ public class MenuController : MonoBehaviour {
     // 0.开始游戏
     public void StartGame()
     {
-		MenuPanel.transform.localScale = Vector3.zero;
+		//MenuPanel.transform.localScale = Vector3.zero;
+		MenuPanel.SetActive (false);
         Application.LoadLevel("Game");
     }
 
     // 1.开始新版游戏
     public void StartGameNew()
     {
-		MenuPanel.transform.localScale = Vector3.zero;
+		//MenuPanel.transform.localScale = Vector3.zero;
+		MenuPanel.SetActive (false);
         Application.LoadLevel("GameNew");
     }
 
@@ -52,12 +54,20 @@ public class MenuController : MonoBehaviour {
     public void HeroSelect()
     {
         this.HerosPanel.SetActive(true);
+		FocusableManager._needUpdate = true;
     }
+	public void CloseHeroPanel(){
+		HerosPanel.SetActive (false);
+	}
 
     // 6.显示商店面板
     public void Shop()
     {
         this.ShopPanel.SetActive(true);
+		FocusableManager._needUpdate = true;
     }
+	public void CloseShop(){
+		ShopPanel.SetActive (false);
+	}
 
 }

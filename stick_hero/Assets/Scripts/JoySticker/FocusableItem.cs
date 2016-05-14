@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace JoystickInputController {
-
 	/// <summary>
 	/// 聚焦项基类
 	/// </summary>
@@ -60,7 +58,7 @@ namespace JoystickInputController {
 		/// </summary>
 		public virtual bool IsActive {
 			get {
-				return gameObject.activeInHierarchy && gameObject.activeSelf;
+			return gameObject.activeInHierarchy && gameObject.activeSelf ;
 			}
 		}
 
@@ -195,4 +193,3 @@ namespace JoystickInputController {
 		}
 			
 	}
-}

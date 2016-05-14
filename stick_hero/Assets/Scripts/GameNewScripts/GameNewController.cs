@@ -56,12 +56,11 @@ public class GameNewController : Singleton<GameNewController> {
     private Vector3 secondPosition;                       //第二个西瓜的位置
     public static int melonNum;                           //西瓜的个数
 
-    #region 脚本生命周期
-
 	void Start () {
-		GameoverPlanel = GameObject.FindWithTag ("gameover_panel");
-		//游戏帧率设置
-		Application.targetFrameRate = 60;
+		GameoverPlanel = Client.Ins.GameOverPanel;
+		ScoreText = Client.Ins.ScoreText;
+		ScoreText.GetComponent<Text> ().text = "0";
+		ScoreText.SetActive (true);
 		//初始化当前平台
 		CurrentPlatform = GameObject.FindGameObjectWithTag("gamenew_platform_start");
 		//平台初始位置
@@ -150,10 +149,6 @@ public class GameNewController : Singleton<GameNewController> {
         }
     }
 
-    #endregion
-
-
-    #region 自定义函数
 
     //创建一个新平台
     public void CreatePlatform()
@@ -257,10 +252,9 @@ public class GameNewController : Singleton<GameNewController> {
         //等待震动动画结束
         yield return new WaitForSeconds(1.0f);
         // 显示gameover面板
-		GameoverPlanel.transform.localScale = Vector3.one;
+		GameoverPlanel.SetActive(true);
+		FocusableManager._needUpdate = true;
         yield return 0;
     }
-
-    #endregion
-
+		
 }

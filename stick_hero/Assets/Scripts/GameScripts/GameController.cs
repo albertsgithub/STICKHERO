@@ -34,9 +34,11 @@ public class GameController : Singleton<GameController>
 
     private void Start()
     {
-		GameoverPlanel = GameObject.FindWithTag ("gameover_panel");
-		//游戏帧率设置
-		Application.targetFrameRate = 60;
+		GameoverPlanel = Client.Ins.GameOverPanel;
+		ScoreText = Client.Ins.ScoreText;
+		ScoreText.GetComponent<Text> ().text = "0";
+		ScoreText.SetActive (true);
+
 		//初始化当前平台
 		CurrentPlatform = GameObject.FindGameObjectWithTag("game_platform_start");
 		//平台宽度
@@ -54,8 +56,6 @@ public class GameController : Singleton<GameController>
 		//初始化平台目标参数
 		targetDistance = minDistance;
 		targetScale = maxScale;
-
-		ScoreText = GameObject.FindWithTag ("score_text");
 
         //创建第一个新平台
         StartCoroutine(CreatePlatform());
@@ -149,7 +149,9 @@ public class GameController : Singleton<GameController>
         //等待震动动画结束
         yield return new WaitForSeconds(1.0f);
         // 显示gameover面板
-		GameoverPlanel.transform.localScale = Vector3.one;
+		GameoverPlanel.SetActive(true);
+		FocusableManager._needUpdate = true;
+
         yield return 0;
     }
 
