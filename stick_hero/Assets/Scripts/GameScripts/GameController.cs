@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿//  
+//GameController.cs  
+//  
+// Created by [JiangXinhou]  
+//  
+// Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +15,9 @@ public class GameController : Singleton<GameController>
     public static GameObject CurrentPlatform;             //当前平台
     [System.NonSerialized]
     public static GameObject NewPlatform;                 //当前新平台
-	private GameObject GameoverPlanel;                     //游戏结束面板
+	//private GameObject GameoverPlanel;                     //游戏结束面板
     public GameObject PlatformPrefab;                     //平台预设模板
-	private GameObject ScoreText;                          //游戏分数显示标签
+	//private GameObject ScoreText;                          //游戏分数显示标签
 
     public static bool gameover;                          //游戏结束标志
     public static bool canCreatePlatform;                 //允许创建平台
@@ -34,10 +40,12 @@ public class GameController : Singleton<GameController>
 
     private void Start()
     {
-		GameoverPlanel = Client.Ins.GameOverPanel;
-		ScoreText = Client.Ins.ScoreText;
-		ScoreText.GetComponent<Text> ().text = "0";
-		ScoreText.SetActive (true);
+		//GameoverPlanel = Client.Ins.GameOverPanel;
+		//ScoreText = Client.Ins.ScoreText;
+		//ScoreText.GetComponent<Text> ().text = "0";
+		//ScoreText.SetActive (true);
+		Client.Ins.ScoreText.GetComponent<Text>().text = "0";
+		Client.Ins.ScoreText.SetActive (true);
 
 		//初始化当前平台
 		CurrentPlatform = GameObject.FindGameObjectWithTag("game_platform_start");
@@ -72,7 +80,7 @@ public class GameController : Singleton<GameController>
         if (!gameover)
         {
             //更新显示当前分数
-            ScoreText.GetComponent<Text>().text = score.ToString();
+			Client.Ins.ScoreText.GetComponent<Text>().text = score.ToString();
         }
 
         //新平台产生源
@@ -149,7 +157,7 @@ public class GameController : Singleton<GameController>
         //等待震动动画结束
         yield return new WaitForSeconds(1.0f);
         // 显示gameover面板
-		GameoverPlanel.SetActive(true);
+		Client.Ins.GameOverPanel.SetActive(true);
 		FocusableManager._needUpdate = true;
 
         yield return 0;

@@ -1,7 +1,9 @@
-﻿// 
-// Code created by [Jiang Xinhou]
-//
-// Copyright (C) 2014 Nanjing Xiaoxi Network Technology Co., Ltd. (http://www.mogoomobile.com)
+﻿//  
+//PlayerController.cs  
+//  
+// Created by [JiangXinhou]  
+//  
+// Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
 using UnityEngine;
 using System.Collections;
 

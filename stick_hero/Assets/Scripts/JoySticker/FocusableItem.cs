@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿//  
+//FocusableItem.cs  
+//  
+// Created by [JiangXinhou]  
+//  
+// Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +17,6 @@ using UnityEngine.UI;
 		public bool FirstFocus = false;       //优先获得聚焦
 		public FocusableRoot Root;            //根节点
 
-		public BoxCollider boxCollider { get; private set; }
 		//上下左右相邻的聚焦项目及其禁用状态
 		public bool DisableLeft = false;
 		public FocusableItem Left;
@@ -22,13 +27,10 @@ using UnityEngine.UI;
 		public bool DisableDown = false;
 		public FocusableItem Down;
 
-		public virtual void Awake() {
-			this.boxCollider = GetComponent<BoxCollider>();
-		}
-
 		public virtual void OnEnable() {
 			StartCoroutine(Register());
 		}
+
 		void OnDisable() {
 			if (FocusableManager.Ins != null) {
 				FocusableManager.Ins.UnRegister(Root, this);
@@ -117,18 +119,19 @@ using UnityEngine.UI;
 		///       计算并选取最佳相邻聚焦项目
 		/// </summary>
 		protected virtual FocusableItem Search(Vector3 dir, List<FocusableItem> list) {
+		
 			Vector3 myScreenPos = transform.position;
 			float min = float.MaxValue;
 			float weightMax = 0;
 			//计算的最佳项目
 			FocusableItem ret = null;
+
 			for (int i = 0; i < list.Count; ++i) {
 				FocusableItem item = list[i];
 				//跳过自己本身和不活跃的
 				if (item == this || !item.IsActive) {
 					continue;
 				}
-
 				Vector3 navCenter = item.transform.position;
 				//目标对象与起点的方向向量
 				Vector3 targetDir = navCenter - myScreenPos;
@@ -145,33 +148,11 @@ using UnityEngine.UI;
 					continue;
 				}
 
-				float weight = 1f / mag * 10f;
-				if (dot > 0.99f) {//如果角度极为一致
-								  //判断是否属于同一组物体
-					if (this.transform.parent == item.transform.parent) {
-						weight += 1000f;
-					}
-				}
-				//				weight += dot / (1.01f - dot) / mag + dot * (1f) / mag;
+			    float weight = dot / (1.1f - dot) / mag + dot * (100f)/ mag;
 				if (weight > weightMax) {
 					weightMax = weight;
 					ret = item;
 				}
-
-
-				//				power = (1f - dot)*mag;
-
-				//				if (weight == float.PositiveInfinity && powerTemp == float.PositiveInfinity) {
-				//					if (mag < min) {
-				//						powerTemp = weight;
-				//						ret = item;
-				//						min = mag;
-				//					}
-				//				} else if (weight > powerTemp) {
-				//					powerTemp = weight;
-				//					ret = item;
-				//					min = mag;
-				//				}
 			}
 			return ret;
 		}

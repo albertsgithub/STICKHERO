@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿//  
+//TextureRandomizer.cs  
+//  
+// Created by [JiangXinhou]  
+//  
+// Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
+using UnityEngine;
 using System.Collections;
 
 public class TextureRandomizer : MonoBehaviour {

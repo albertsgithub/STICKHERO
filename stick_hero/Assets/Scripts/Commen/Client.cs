@@ -1,5 +1,5 @@
 ﻿//  
-//NewBehaviourScript.cs  
+//Client.cs  
 //  
 // Created by [JiangXinhou]  
 //  
@@ -8,16 +8,6 @@ using UnityEngine;
 using System.Collections;
 
 public class Client : Singleton<Client> {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public GameObject ScoreText;
 	public GameObject GameOverPanel;

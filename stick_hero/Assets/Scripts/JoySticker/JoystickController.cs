@@ -1,4 +1,10 @@
-﻿using System;
+﻿//  
+//JoystickController.cs  
+//  
+// Created by [JiangXinhou]  
+//  
+// Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
+using System;
 using UnityEngine;
 	
 	/// <summary>

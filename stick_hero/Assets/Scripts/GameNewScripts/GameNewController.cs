@@ -1,7 +1,9 @@
-﻿// 
-// Code created by [Jiang Xinhou]
-//
-// Copyright (C) 2014 Nanjing Xiaoxi Network Technology Co., Ltd. (http://www.mogoomobile.com)
+﻿//  
+//GameNewController.cs  
+//  
+// Created by [JiangXinhou]  
+//  
+// Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
@@ -13,13 +15,13 @@ public class GameNewController : Singleton<GameNewController> {
     public static GameObject CurrentPlatform;             //当前平台
     [System.NonSerialized]
     public static GameObject NewPlatform;                 //当前新平台
-	private GameObject GameoverPlanel;                     //游戏结束面板
+	//private GameObject GameoverPlanel;                     //游戏结束面板
     public GameObject PlatformPrefab;                     //平台预设模板
     public GameObject Melon1Prefab;                       //西瓜1预设模板
     public GameObject Melon2Prefab;                       //西瓜2预设模板
     private GameObject Melon1;                            //西瓜1
     private GameObject Melon2;                            //西瓜2
-	private GameObject ScoreText;                          //游戏分数显示标签
+	//private GameObject ScoreText;                          //游戏分数显示标签
 
     public static bool gameover;                          //游戏结束标志
     public static bool canCreatePlatform;                 //允许创建平台
@@ -57,10 +59,10 @@ public class GameNewController : Singleton<GameNewController> {
     public static int melonNum;                           //西瓜的个数
 
 	void Start () {
-		GameoverPlanel = Client.Ins.GameOverPanel;
-		ScoreText = Client.Ins.ScoreText;
-		ScoreText.GetComponent<Text> ().text = "0";
-		ScoreText.SetActive (true);
+		//GameoverPlanel = Client.Ins.GameOverPanel;
+		//ScoreText = Client.Ins.ScoreText;
+		Client.Ins.ScoreText.GetComponent<Text> ().text = "0";
+		Client.Ins.ScoreText.SetActive (true);
 		//初始化当前平台
 		CurrentPlatform = GameObject.FindGameObjectWithTag("gamenew_platform_start");
 		//平台初始位置
@@ -88,8 +90,6 @@ public class GameNewController : Singleton<GameNewController> {
 		firstPosition = Vector3.zero;
 		secondPosition = Vector3.zero;
 
-		ScoreText = GameObject.FindWithTag ("score_text");
-
         //创建第一个新平台
         //创建一个西瓜
         melonNum = 1;
@@ -108,7 +108,7 @@ public class GameNewController : Singleton<GameNewController> {
         if (!gameover)
         {
             //更新显示当前分数
-            ScoreText.GetComponent<Text>().text = score.ToString();
+			Client.Ins.ScoreText.GetComponent<Text>().text = score.ToString();
         }
 
         //新平台产生源
@@ -252,7 +252,7 @@ public class GameNewController : Singleton<GameNewController> {
         //等待震动动画结束
         yield return new WaitForSeconds(1.0f);
         // 显示gameover面板
-		GameoverPlanel.SetActive(true);
+		Client.Ins.GameOverPanel.SetActive(true);
 		FocusableManager._needUpdate = true;
         yield return 0;
     }

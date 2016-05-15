@@ -1,7 +1,9 @@
-﻿//
-// Code created by [Jiang Xinhou]
-//
-// Copyright (C) 2014 Nanjing Xiaoxi Network Technology Co., Ltd. (http://www.mogoomobile.com)
+﻿//  
+//MenuController.cs  
+//  
+// Created by [JiangXinhou]  
+//  
+// Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
 using UnityEngine;
 using System.Collections;
 
@@ -11,25 +13,18 @@ public class MenuController : MonoBehaviour {
     public GameObject HerosPanel;
     //购买芒果面板
     public GameObject ShopPanel;
-	//
-	public GameObject MenuPanel;
-
-    //声音设置按钮的子图片
-    //public GameObject soundsImage;
 
     // 0.开始游戏
     public void StartGame()
     {
-		//MenuPanel.transform.localScale = Vector3.zero;
-		MenuPanel.SetActive (false);
+		Client.Ins.MenuBG.SetActive (false);
         Application.LoadLevel("Game");
     }
 
     // 1.开始新版游戏
     public void StartGameNew()
     {
-		//MenuPanel.transform.localScale = Vector3.zero;
-		MenuPanel.SetActive (false);
+		Client.Ins.MenuBG.SetActive (false);
         Application.LoadLevel("GameNew");
     }
 
@@ -53,7 +48,7 @@ public class MenuController : MonoBehaviour {
     // 5.显示选择英雄面板
     public void HeroSelect()
     {
-        this.HerosPanel.SetActive(true);
+        HerosPanel.SetActive(true);
 		FocusableManager._needUpdate = true;
     }
 	public void CloseHeroPanel(){
@@ -63,7 +58,7 @@ public class MenuController : MonoBehaviour {
     // 6.显示商店面板
     public void Shop()
     {
-        this.ShopPanel.SetActive(true);
+        ShopPanel.SetActive(true);
 		FocusableManager._needUpdate = true;
     }
 	public void CloseShop(){

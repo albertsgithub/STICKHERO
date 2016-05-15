@@ -1,5 +1,5 @@
 ﻿//  
-//NewBehaviourScript.cs  
+//FocusEffect.cs  
 //  
 // Created by [JiangXinhou]  
 //  

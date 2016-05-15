@@ -1,4 +1,10 @@
-﻿using System;
+﻿//  
+//FocusableManager.cs  
+//  
+// Created by [JiangXinhou]  
+//  
+// Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

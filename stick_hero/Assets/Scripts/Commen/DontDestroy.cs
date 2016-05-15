@@ -1,5 +1,5 @@
 ﻿//  
-//NewBehaviourScript.cs  
+//DontDestroy.cs  
 //  
 // Created by [JiangXinhou]  
 //  

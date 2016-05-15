@@ -1,5 +1,5 @@
 ﻿//  
-//NewBehaviourScript.cs  
+//FocusableRoot.cs  
 //  
 // Created by [JiangXinhou]  
 //  

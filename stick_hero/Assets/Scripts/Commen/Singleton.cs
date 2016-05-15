@@ -1,5 +1,5 @@
 ﻿//  
-//NewBehaviourScript.cs  
+//Singleton.cs  
 //  
 // Created by [JiangXinhou]  
 //  

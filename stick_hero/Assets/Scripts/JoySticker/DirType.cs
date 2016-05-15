@@ -1,5 +1,5 @@
 ﻿//  
-//NewBehaviourScript.cs  
+//DirType.cs  
 //  
 // Created by [JiangXinhou]  
 //  

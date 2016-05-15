@@ -1,5 +1,5 @@
 ﻿//  
-//NewBehaviourScript.cs  
+//ShowMenuBG.cs  
 //  
 // Created by [JiangXinhou]  
 //  
