@@ -13,4 +13,10 @@ public class Client : Singleton<Client> {
 	public GameObject GameOverPanel;
 	public GameObject MenuBG;
 
+	public static bool currentGameOver;
+
+	void Start(){
+		currentGameOver = false;
+	}
+
 }

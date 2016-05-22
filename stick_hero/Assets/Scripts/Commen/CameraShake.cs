@@ -24,7 +24,7 @@ public class CameraShake : MonoBehaviour
 
     private void Update()
     {
-        if ((((Application.loadedLevel == 1) && GameController.gameover) || ((Application.loadedLevel == 2) && PlayerNewController.isDead)) && (this.shake_scale > 0f))
+		if ( Client.currentGameOver && (this.shake_scale > 0f))
         {
             //停止背景音乐
             GetComponent<AudioSource>().Stop();
@@ -33,9 +33,9 @@ public class CameraShake : MonoBehaviour
             //幅度衰减
             shake_scale -= shake_decay;
 
-            //摇晃幅度小于零销毁脚本
-            if (shake_scale < 0)
-                Destroy(gameObject.GetComponent<CameraShake>());
+            //摇晃幅度小于零
+			if (shake_scale < 0)
+				Client.currentGameOver = false;
         }
     }
 

@@ -67,14 +67,14 @@ public class PlayerController : MonoBehaviour {
             return;
 
         //鼠标左键按下或者屏幕触摸
-		if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)){
+		if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
             //初始化棍子
             InitStickRender();
             isPulling = true;
         }
 
         //松开
-		if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Space)) {
+		if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Return)) {
             //停止交互
             GameController.canStartTheGame = false;
             //计算动作结果

@@ -79,7 +79,7 @@ public class PlayerNewController : MonoBehaviour {
         if (!GameNewController.canStartTheGame || GameNewController.gameover)
             return;
         //鼠标左键按下或者屏幕触摸放倒棍子并停止交互
-        if(Input.GetMouseButtonDown(0)){
+		if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
             //停止交互
             GameNewController.canStartTheGame = false;
             //播放挥舞棍子的音效

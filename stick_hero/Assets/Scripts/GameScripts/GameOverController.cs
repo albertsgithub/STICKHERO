@@ -66,7 +66,7 @@ public class GameOverController : Singleton<GameOverController> {
 	{
 		Client.Ins.GameOverPanel.SetActive(false);
 		//重新加载当前scene
-		Application.LoadLevel(Application.loadedLevel);
+		Application.LoadLevel("Game");
 	}
 
 }

@@ -17,7 +17,7 @@ public class MenuController : MonoBehaviour {
     // 0.开始游戏
     public void StartGame()
     {
-		Client.Ins.MenuBG.SetActive (false);
+		//Client.Ins.MenuBG.SetActive (false);
         Application.LoadLevel("Game");
     }
 

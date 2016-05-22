@@ -61,6 +61,7 @@ public class GameNewController : Singleton<GameNewController> {
 	void Start () {
 		//GameoverPlanel = Client.Ins.GameOverPanel;
 		//ScoreText = Client.Ins.ScoreText;
+		Client.Ins.MenuBG.SetActive(false);
 		Client.Ins.ScoreText.GetComponent<Text> ().text = "0";
 		Client.Ins.ScoreText.SetActive (true);
 		//初始化当前平台
@@ -145,6 +146,7 @@ public class GameNewController : Singleton<GameNewController> {
         //检测游戏结束
         if (gameover)
         {
+			Client.currentGameOver = true;
             StartCoroutine(processGameover());
         }
     }
@@ -250,8 +252,10 @@ public class GameNewController : Singleton<GameNewController> {
         }
 
         //等待震动动画结束
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         // 显示gameover面板
+		Application.LoadLevel("GameOver");
+		Client.currentGameOver = false;
 		Client.Ins.GameOverPanel.SetActive(true);
 		FocusableManager._needUpdate = true;
         yield return 0;
