@@ -146,6 +146,7 @@ public class GameNewController : Singleton<GameNewController> {
         //检测游戏结束
         if (gameover)
         {
+			gameover = false;
 			Client.currentGameOver = true;
             StartCoroutine(processGameover());
         }

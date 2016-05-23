@@ -15,21 +15,19 @@ public class GameOverController : Singleton<GameOverController> {
 
 	void Start(){
 		//最高分
-		int best;
+		int best,score;
 		if (Application.loadedLevel == 2) {
 			best = PlayerPrefs.GetInt("game_best");
-			ScoreText.text = Client.Ins.ScoreText.GetComponent<Text> ().text;
+			score = GameController.score;
 		} else {
-			ScoreText.text = GameNewController.score.ToString ();
+			score = GameNewController.score;
 			best = PlayerPrefs.GetInt("gamenew_best");
 		}
 		BestText.text = best.ToString();
+		ScoreText.text = score.ToString ();
 	}
 
 	void Enable(){
-		Client.Ins.GameOverPanel.SetActive(false);
-		//重新加载当前scene
-		Application.LoadLevel(Application.loadedLevel);
 	}
 
 	//0.分享按钮事件
@@ -66,7 +64,10 @@ public class GameOverController : Singleton<GameOverController> {
 	{
 		Client.Ins.GameOverPanel.SetActive(false);
 		//重新加载当前scene
-		Application.LoadLevel("Game");
+		if(Application.loadedLevel == 2)
+			Application.LoadLevel("Game");
+		else
+			Application.LoadLevel("GameNew");
 	}
 
 }

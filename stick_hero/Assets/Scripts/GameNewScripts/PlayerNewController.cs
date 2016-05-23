@@ -76,7 +76,7 @@ public class PlayerNewController : MonoBehaviour {
 	void Update () {
 
         //检测输入
-        if (!GameNewController.canStartTheGame || GameNewController.gameover)
+		if (!GameNewController.canStartTheGame || Client.currentGameOver)
             return;
         //鼠标左键按下或者屏幕触摸放倒棍子并停止交互
 		if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){

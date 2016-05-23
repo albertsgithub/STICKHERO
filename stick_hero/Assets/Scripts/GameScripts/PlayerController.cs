@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour {
 	// 按帧更新
 	void Update () {
         //检测输入
-        if (GameController.gameover || !GameController.canStartTheGame)
+		if (Client.currentGameOver || !GameController.canStartTheGame)
             return;
 
         //鼠标左键按下或者屏幕触摸

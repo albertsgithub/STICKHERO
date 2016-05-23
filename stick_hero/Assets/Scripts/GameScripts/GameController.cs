@@ -15,9 +15,7 @@ public class GameController : Singleton<GameController>
     public static GameObject CurrentPlatform;             //当前平台
     [System.NonSerialized]
     public static GameObject NewPlatform;                 //当前新平台
-	//private GameObject GameoverPlanel;                     //游戏结束面板
     public GameObject PlatformPrefab;                     //平台预设模板
-	//private GameObject ScoreText;                          //游戏分数显示标签
 
     public static bool gameover;                          //游戏结束标志
     public static bool canCreatePlatform;                 //允许创建平台
@@ -40,10 +38,6 @@ public class GameController : Singleton<GameController>
 
     private void Start()
     {
-		//GameoverPlanel = Client.Ins.GameOverPanel;
-		//ScoreText = Client.Ins.ScoreText;
-		//ScoreText.GetComponent<Text> ().text = "0";
-		//ScoreText.SetActive (true);
 		Client.Ins.MenuBG.SetActive(false);
 		Client.Ins.ScoreText.GetComponent<Text>().text = "0";
 		Client.Ins.ScoreText.SetActive (true);
@@ -119,6 +113,7 @@ public class GameController : Singleton<GameController>
         //检测游戏结束
         if (gameover)
         {
+			gameover = false;
 			Client.currentGameOver = true;
             StartCoroutine(processGameover());
         }

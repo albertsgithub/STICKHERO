@@ -32,10 +32,6 @@ public class CameraShake : MonoBehaviour
             transform.position = originPosition + ((Vector3)(UnityEngine.Random.insideUnitSphere * shake_scale));
             //幅度衰减
             shake_scale -= shake_decay;
-
-            //摇晃幅度小于零
-			if (shake_scale < 0)
-				Client.currentGameOver = false;
         }
     }
 
