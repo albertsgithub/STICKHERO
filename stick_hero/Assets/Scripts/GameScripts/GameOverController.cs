@@ -16,7 +16,7 @@ public class GameOverController : Singleton<GameOverController> {
 	void Start(){
 		//最高分
 		int best,score;
-		if (Application.loadedLevel == 2) {
+		if (Client.currentGame == 1) {
 			best = PlayerPrefs.GetInt("game_best");
 			score = GameController.score;
 		} else {
@@ -64,7 +64,7 @@ public class GameOverController : Singleton<GameOverController> {
 	{
 		Client.Ins.GameOverPanel.SetActive(false);
 		//重新加载当前scene
-		if(Application.loadedLevel == 2)
+		if(Client.currentGame == 1)
 			Application.LoadLevel("Game");
 		else
 			Application.LoadLevel("GameNew");

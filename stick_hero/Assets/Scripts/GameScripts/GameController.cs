@@ -19,7 +19,7 @@ public class GameController : Singleton<GameController>
 
     public static bool gameover;                          //游戏结束标志
     public static bool canCreatePlatform;                 //允许创建平台
-    public static bool canStartTheGame;                   //允许游戏交互
+	public static bool canStartTheGame = false;                   //允许游戏交互
 
     private float minDistance = 1.0f;                     //新平台离当前平台的最近距离
     private float maxDistance = 3.0f;                     //新平台离当前平台的最远距离
@@ -36,7 +36,7 @@ public class GameController : Singleton<GameController>
     public static int score;                              //当前游戏分数
     
 
-    private void Start()
+	IEnumerator Start()
     {
 		Client.Ins.MenuBG.SetActive(false);
 		Client.Ins.ScoreText.GetComponent<Text>().text = "0";
@@ -54,7 +54,6 @@ public class GameController : Singleton<GameController>
 		canCreatePlatform = false;
 		platformCreated = 0;
 		score = 0;
-		canStartTheGame = false;
 
 		//初始化平台目标参数
 		targetDistance = minDistance;
@@ -64,6 +63,7 @@ public class GameController : Singleton<GameController>
         StartCoroutine(CreatePlatform());
         
         //开始交互
+		yield return new WaitForSeconds(1.0f);
         canStartTheGame = true;
     }
 

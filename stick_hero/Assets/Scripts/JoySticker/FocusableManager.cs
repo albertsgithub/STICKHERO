@@ -63,6 +63,9 @@ using UnityEngine;
             //返回
             JoystickController.Ins.OnBack += () =>
             {
+			Client.Ins.MenuBG.SetActive (true);
+			Client.Ins.ScoreText.SetActive (false);
+			Application.LoadLevel("Menu");
             };
 
 			//菜单键按下

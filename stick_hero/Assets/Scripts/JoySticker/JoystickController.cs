@@ -6,6 +6,7 @@
 // Copyright jiangxinhou@outlook.com (http://blog.csdn.net/cordova)
 using System;
 using UnityEngine;
+using MojingSample.CrossPlatformInput;
 	
 	/// <summary>
 	/// 摇杆和tv控制器的模拟
@@ -26,19 +27,19 @@ using UnityEngine;
 		//输入检测
 		void Update() {
 			if (this.SimulateJoystick) {
-				if (Input.GetKeyDown(KeyCode.UpArrow)) {
+			if (Input.GetKeyDown(KeyCode.UpArrow)||CrossPlatformInputManager.GetButtonDown("UP")) {
 					this.OnUp();
-				} else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+			} else if (Input.GetKeyDown(KeyCode.LeftArrow)||CrossPlatformInputManager.GetButtonDown("LEFT")) {
 					this.OnLeft();
-				} else if (Input.GetKeyDown(KeyCode.RightArrow)) {
+			} else if (Input.GetKeyDown(KeyCode.RightArrow)||CrossPlatformInputManager.GetButtonDown("RIGHT")) {
 					this.OnRight();
-				} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+			} else if (Input.GetKeyDown(KeyCode.DownArrow)||CrossPlatformInputManager.GetButtonDown("DOWN")) {
 					this.OnDown();
-				} else if (Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.KeypadEnter)||Input.GetMouseButtonDown(0)) {
+			} else if (Input.GetKeyDown(KeyCode.Space)||Input.GetMouseButtonDown(0)||CrossPlatformInputManager.GetButtonDown("OK")) {
 					this.OnConfirm();
-				} else if (Input.GetKeyDown(KeyCode.Escape)) {
+			} else if (Input.GetKeyDown(KeyCode.Escape)||CrossPlatformInputManager.GetButtonDown("C")) {
 					this.OnBack();
-                } else if (Input.GetKeyDown(KeyCode.Menu)||Input.GetKeyDown(KeyCode.RightControl))
+			} else if (Input.GetKeyDown(KeyCode.Menu)||Input.GetKeyDown(KeyCode.RightControl)||CrossPlatformInputManager.GetButtonDown("MENU"))
                 {
                     this.OnMenu();
                 }
