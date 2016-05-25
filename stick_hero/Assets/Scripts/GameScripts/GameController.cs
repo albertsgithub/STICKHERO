@@ -38,6 +38,8 @@ public class GameController : Singleton<GameController>
 
 	IEnumerator Start()
     {
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
 		Client.Ins.MenuBG.SetActive(false);
 		Client.Ins.ScoreText.GetComponent<Text>().text = "0";
 		Client.Ins.ScoreText.SetActive (true);

@@ -59,8 +59,8 @@ public class GameNewController : Singleton<GameNewController> {
     public static int melonNum;                           //西瓜的个数
 
 	void Start () {
-		//GameoverPlanel = Client.Ins.GameOverPanel;
-		//ScoreText = Client.Ins.ScoreText;
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
 		Client.Ins.MenuBG.SetActive(false);
 		Client.Ins.ScoreText.GetComponent<Text> ().text = "0";
 		Client.Ins.ScoreText.SetActive (true);
