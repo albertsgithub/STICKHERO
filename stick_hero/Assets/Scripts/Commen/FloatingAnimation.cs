@@ -11,8 +11,8 @@ using System.Collections;
 public class FloatingAnimation : MonoBehaviour
 {
     float radian = 0;           // 弧度  
-    float perRadian = 0.03f;    // 每次变化的弧度  
-    float radius = 1.5f;        // 半径  
+    float perRadian = 0.03f; // 每次变化的弧度  
+    float radius = 2.5f;        // 半径  
     Vector3 oldPos;             // 开始时候的坐标  
 
 

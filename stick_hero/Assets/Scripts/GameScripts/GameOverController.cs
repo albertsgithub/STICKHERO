@@ -14,20 +14,21 @@ public class GameOverController : Singleton<GameOverController> {
     public Text BestText;              //游戏结束界面最高分标签引用
 
 	void Start(){
+	}
+
+	void Update(){
 		//最高分
 		int best,score;
 		if (Client.currentGame == 1) {
 			best = PlayerPrefs.GetInt("game_best");
-			score = GameController.score;
+			score = Client.GameScore;
 		} else {
-			score = GameNewController.score;
+			score = Client.GameNewScore;
 			best = PlayerPrefs.GetInt("gamenew_best");
 		}
+
 		BestText.text = best.ToString();
 		ScoreText.text = score.ToString ();
-	}
-
-	void Enable(){
 	}
 
 	//0.分享按钮事件

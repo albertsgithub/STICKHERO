@@ -17,7 +17,7 @@ public class GameNewOverController : MonoBehaviour {
     {
         //最高分
         int best = PlayerPrefs.GetInt("gamenew_best");
-        ScoreTextNew.GetComponent<Text>().text = GameNewController.score.ToString();
+        ScoreTextNew.GetComponent<Text>().text = GameNewController.Ins.score.ToString();
         BestTextNew.GetComponent<Text>().text = best.ToString();
     }
 }

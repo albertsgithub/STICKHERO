@@ -248,7 +248,7 @@ public class PlayerNewController : MonoBehaviour {
         //跳跃音效
         PlaySfx(sfx_stick);
         //正常得分
-        ++GameNewController.score;
+        ++GameNewController.Ins.score;
         
         //等待主角跳跃动画结束
         yield return new WaitForSeconds(1.0f);

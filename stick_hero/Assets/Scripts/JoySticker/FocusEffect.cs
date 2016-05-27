@@ -9,10 +9,10 @@ using System.Collections;
 	
 	public class FocusEffect : MonoBehaviour {
 
-		public float radius = 0.01f;
+		public float radius = 0.02f;
 		private Vector3 oldScale;
 		float radian = 0;
-		public float speed = 0.05f;
+		public float speed = 0.15f;
 
 		public GameObject Icon;
 		public FocusableItem item; 

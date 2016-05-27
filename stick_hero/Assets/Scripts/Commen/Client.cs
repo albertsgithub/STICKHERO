@@ -16,6 +16,9 @@ public class Client : Singleton<Client> {
 	public static bool currentGameOver;
 	public static int currentGame;
 
+	public static int GameScore;
+	public static int GameNewScore;
+
 	void Start(){
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 

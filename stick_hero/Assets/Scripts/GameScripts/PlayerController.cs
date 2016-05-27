@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour {
     }
 
 	void Start () {	
+		//初始化棍子
+		InitStickRender();
 	}
 
 	// 按帧更新
@@ -184,7 +186,7 @@ public class PlayerController : MonoBehaviour {
                 //播放额外加分音效
                 PlaySfx(sfx_bonus);
                 //额外加一分
-                ++GameController.score;
+                ++GameController.Ins.score;
             }
 
             //等待一会儿通知主角可以开始前进
@@ -222,7 +224,7 @@ public class PlayerController : MonoBehaviour {
                 //播放动作成功音效
                 //PlaySfx(sfx_hit);
                 //正常得分
-                ++GameController.score;
+                ++GameController.Ins.score;
                 //将主角绑定到新平台上跟随平台往后移动
                 transform.parent = GameController.NewPlatform.transform;
                 //隐藏棍子

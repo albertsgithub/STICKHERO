@@ -33,13 +33,10 @@ public class GameController : Singleton<GameController>
     public static float platFormH;                        //平台高度
     
     public static int platformCreated;                    //已经创建平台个数
-    public static int score;                              //当前游戏分数
+    public  int score;                              //当前游戏分数
     
-
 	IEnumerator Start()
     {
-		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
 		Client.Ins.MenuBG.SetActive(false);
 		Client.Ins.ScoreText.GetComponent<Text>().text = "0";
 		Client.Ins.ScoreText.SetActive (true);
@@ -53,7 +50,6 @@ public class GameController : Singleton<GameController>
 
 		//变量初始值
 		gameover = false;
-		canCreatePlatform = false;
 		platformCreated = 0;
 		score = 0;
 
@@ -145,12 +141,12 @@ public class GameController : Singleton<GameController>
     //游戏结束处理
     private IEnumerator processGameover()
     {
+		Client.GameScore = score;
         //结算最高成绩：
         int best = PlayerPrefs.GetInt("game_best");
         if (score > best)
         {
-            best = score;
-            PlayerPrefs.SetInt("game_best", best);
+			PlayerPrefs.SetInt("game_best", score);
         }
 
         //等待震动动画结束
@@ -163,14 +159,4 @@ public class GameController : Singleton<GameController>
 
         yield return 0;
     }
-
-    //保存最高分
-    private void saveScore()
-    {
-        int best = PlayerPrefs.GetInt("bestScore");
-        if (score > best)
-        {
-            PlayerPrefs.SetInt("bestScore", score);
-        }
-    } 
 }

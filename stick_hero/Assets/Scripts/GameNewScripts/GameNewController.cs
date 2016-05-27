@@ -21,7 +21,6 @@ public class GameNewController : Singleton<GameNewController> {
     public GameObject Melon2Prefab;                       //西瓜2预设模板
     private GameObject Melon1;                            //西瓜1
     private GameObject Melon2;                            //西瓜2
-	//private GameObject ScoreText;                          //游戏分数显示标签
 
     public static bool gameover;                          //游戏结束标志
     public static bool canCreatePlatform;                 //允许创建平台
@@ -42,7 +41,7 @@ public class GameNewController : Singleton<GameNewController> {
     public static float platFormH;                        //平台的高度（常量）
 
     public static int platformCreated;                    //已经创建平台个数
-    public static int score;                              //当前游戏分数
+    public int score;                              //当前游戏分数
     private float stickLengthAdd = 1.0f;                  //棍子最大长度增大矫正
     public static float successLength;                    //动作成功的最大棍子长度（棍子不能打到平台） 
     
@@ -243,6 +242,7 @@ public class GameNewController : Singleton<GameNewController> {
     //游戏结束处理
     private IEnumerator processGameover()
     {
+		Client.GameNewScore = score;
         //结算最高成绩：
         int best = PlayerPrefs.GetInt("gamenew_best");
         if (score > best) {

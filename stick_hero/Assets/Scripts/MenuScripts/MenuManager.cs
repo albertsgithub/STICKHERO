@@ -33,6 +33,7 @@ public class MenuManager : MonoBehaviour {
     // 2.游戏引导
     public void Help()
     {
+		PlayerPrefs.DeleteAll ();
     }
 
     // 3.游戏声音设置
