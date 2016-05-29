@@ -35,7 +35,7 @@ public class GameController : Singleton<GameController>
     public static int platformCreated;                    //已经创建平台个数
     public  int score;                              //当前游戏分数
     
-	IEnumerator Start()
+	void Start()
     {
 		Client.Ins.MenuBG.SetActive(false);
 		Client.Ins.ScoreText.GetComponent<Text>().text = "0";
@@ -50,6 +50,7 @@ public class GameController : Singleton<GameController>
 
 		//变量初始值
 		gameover = false;
+		canCreatePlatform = false;
 		platformCreated = 0;
 		score = 0;
 
@@ -61,7 +62,6 @@ public class GameController : Singleton<GameController>
         StartCoroutine(CreatePlatform());
         
         //开始交互
-		yield return new WaitForSeconds(1.0f);
         canStartTheGame = true;
     }
 
