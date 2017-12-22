@@ -7,6 +7,4 @@
 using UnityEngine;
 using System.Collections;
 
-public class FocusableRoot : MonoBehaviour {
-	
-}
+public class FocusableRoot : MonoBehaviour{ }

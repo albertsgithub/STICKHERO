@@ -16,7 +16,7 @@ namespace UnityEngine.UI
         // Event delegates triggered on click.
         [FormerlySerializedAs("onClick")]
         [SerializeField]
-		public ButtonClickedEvent m_OnClick = new ButtonClickedEvent();
+		private ButtonClickedEvent m_OnClick = new ButtonClickedEvent();
 
 		protected JoyStickButton()
         { }
@@ -27,7 +27,8 @@ namespace UnityEngine.UI
             set { m_OnClick = value; }
         }
 
-        private void Press()
+        // 公开触发函数
+        public void Press()
         {
             if (!IsActive() || !IsInteractable())
                 return;

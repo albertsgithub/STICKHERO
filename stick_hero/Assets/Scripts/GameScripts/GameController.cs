@@ -130,7 +130,7 @@ public class GameController : Singleton<GameController>
         //新平台宽度缩放
         NewPlatform.transform.localScale = new Vector3(targetScale*0.05f, 1, 1);
         //恢复子元素加分区域的缩放
-        NewPlatform.transform.FindChild("BonusArea").localScale = new Vector3(0.2f,1f,0.01f);
+        NewPlatform.transform.Find("BonusArea").localScale = new Vector3(0.2f,1f,0.01f);
         //新平台宽度
         newPlatW = NewPlatform.GetComponent<MeshRenderer>().bounds.size.x;
         //及时停止创建
@@ -152,7 +152,6 @@ public class GameController : Singleton<GameController>
         //等待震动动画结束
         yield return new WaitForSeconds(2.0f);
         // 显示gameover面板
-		Application.LoadLevel("GameOver");
 		Client.currentGameOver = false;
 		Client.Ins.GameOverPanel.SetActive(true);
 		FocusableManager._needUpdate = true;

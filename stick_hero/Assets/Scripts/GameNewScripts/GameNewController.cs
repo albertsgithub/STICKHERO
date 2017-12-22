@@ -251,7 +251,6 @@ public class GameNewController : Singleton<GameNewController> {
         //等待震动动画结束
         yield return new WaitForSeconds(2.0f);
         // 显示gameover面板
-		Application.LoadLevel("GameOver");
 		Client.Ins.GameOverPanel.SetActive(true);
 		FocusableManager._needUpdate = true;
         yield return 0;
